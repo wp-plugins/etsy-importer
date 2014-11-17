@@ -1,0 +1,203 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Etsy Importer 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-12-29 15:04-0500\n"
+"PO-Revision-Date: 2013-12-29 15:04-0500\n"
+"Last-Translator: Corey <phenixrising@gmail.com>\n"
+"Language-Team: WebDevStudios <corey@webdevstudios.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: _e;__\n"
+"X-Poedit-Basepath: ./\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-Country: UNITED STATES\n"
+"X-Poedit-SearchPath-0: ..\n"
+"X-Poedit-SearchPath-1: ../..\n"
+
+#: ../etsy-importer.php:320
+#: ../etsy-importer.php:446
+#: ../../etsy-importer/etsy-importer.php:320
+#: ../../etsy-importer/etsy-importer.php:446
+msgid "Etsy Importer"
+msgstr ""
+
+#: ../etsy-importer.php:331
+#: ../../etsy-importer/etsy-importer.php:331
+msgid "API Key:"
+msgstr ""
+
+#: ../etsy-importer.php:332
+#: ../../etsy-importer/etsy-importer.php:332
+msgid "Store ID:"
+msgstr ""
+
+#: ../etsy-importer.php:343
+#: ../../etsy-importer/etsy-importer.php:343
+#, php-format
+msgid "Need help? <a href=\"%s\" class=\"thickbox\">Click here</a> for a walkthrough on how to setup your Etsy Application."
+msgstr ""
+
+#: ../etsy-importer.php:346
+#: ../../etsy-importer/etsy-importer.php:346
+#, php-format
+msgid "In order to import your products, you first need to register an application with Etsy.  <a href=\"%s\" target=\"_blank\">Click here</a> to begin registering your application.  You should see a screen similar to the image below:"
+msgstr ""
+
+#: ../etsy-importer.php:349
+#: ../../etsy-importer/etsy-importer.php:349
+msgid "Once you have created your app, click \"Apps You've Made\" in the sidebar and select your new app.  On the app detail page, copy the value in the Keystring input field.  This is your API Key."
+msgstr ""
+
+#: ../etsy-importer.php:376
+#: ../../etsy-importer/etsy-importer.php:376
+#, php-format
+msgid "Need help? <a href=\"%s\" class=\"thickbox\">Click here</a> for a walkthrough on how to find your Etsy store ID."
+msgstr ""
+
+#: ../etsy-importer.php:379
+#: ../../etsy-importer/etsy-importer.php:379
+msgid "Visit your Etsy store's front page.  View the page source:"
+msgstr ""
+
+#: ../etsy-importer.php:382
+#: ../../etsy-importer/etsy-importer.php:382
+msgid "We want one specific line, whose meta name is \"apple-itunes-app\".  The number you see below following \"etsy://shop/\" is your store ID:"
+msgstr ""
+
+#: ../etsy-importer.php:390
+#: ../../etsy-importer/etsy-importer.php:390
+#, php-format
+msgid "You have imported <strong>%s products</strong>."
+msgstr ""
+
+#: ../etsy-importer.php:391
+#: ../../etsy-importer/etsy-importer.php:391
+#, php-format
+msgid "You are connected to <strong>%s</strong>."
+msgstr ""
+
+#: ../etsy-importer.php:449
+#: ../../etsy-importer/etsy-importer.php:449
+msgid "Import your Etsy store's products as posts in the Product custom post type."
+msgstr ""
+
+#: ../etsy-importer.php:455
+#: ../../etsy-importer/etsy-importer.php:455
+msgid "You must save changes before importing products. If you need to change your API Key or Store ID, hit the Save Changes button before hitting the Import Products button."
+msgstr ""
+
+#: ../etsy-importer.php:459
+#: ../../etsy-importer/etsy-importer.php:459
+msgid "Your import could take a while if you have a large number of products or images attached to each product."
+msgstr ""
+
+#: ../cmb/etsy-fields.php:25
+#: ../../etsy-importer/cmb/etsy-fields.php:25
+msgid "Product Information"
+msgstr ""
+
+#: ../cmb/etsy-fields.php:33
+#: ../../etsy-importer/cmb/etsy-fields.php:33
+msgid "Price"
+msgstr ""
+
+#: ../cmb/etsy-fields.php:38
+#: ../../etsy-importer/cmb/etsy-fields.php:38
+msgid "Etsy Link"
+msgstr ""
+
+#: ../cmb/etsy-fields.php:43
+#: ../../etsy-importer/cmb/etsy-fields.php:43
+msgid "Production Year"
+msgstr ""
+
+#: ../cmb/etsy-fields.php:48
+#: ../../etsy-importer/cmb/etsy-fields.php:48
+msgid "Made For"
+msgstr ""
+
+#: ../cmb/init.php:207
+#: ../../etsy-importer/cmb/init.php:207
+msgid "Clear"
+msgstr ""
+
+#: ../cmb/init.php:208
+#: ../../etsy-importer/cmb/init.php:208
+msgid "Default"
+msgstr ""
+
+#: ../cmb/init.php:209
+#: ../../etsy-importer/cmb/init.php:209
+msgid "Select Color"
+msgstr ""
+
+#: ../cmb/init.php:210
+#: ../../etsy-importer/cmb/init.php:210
+msgid "Current Color"
+msgstr ""
+
+#: ../cmb/init.php:936
+#: ../../etsy-importer/cmb/init.php:936
+msgid "Save"
+msgstr ""
+
+#: ../cmb/helpers/cmb_Meta_Box_ajax.php:47
+#: ../../etsy-importer/cmb/helpers/cmb_Meta_Box_ajax.php:47
+msgid "Please Try Again"
+msgstr ""
+
+#: ../cmb/helpers/cmb_Meta_Box_ajax.php:118
+#: ../../etsy-importer/cmb/helpers/cmb_Meta_Box_ajax.php:118
+msgid "Remove Embed"
+msgstr ""
+
+#: ../cmb/helpers/cmb_Meta_Box_ajax.php:121
+#: ../../etsy-importer/cmb/helpers/cmb_Meta_Box_ajax.php:121
+#, php-format
+msgid "No oEmbed Results Found for %s. View more info at"
+msgstr ""
+
+#: ../cmb/helpers/cmb_Meta_Box_types.php:139
+#: ../../etsy-importer/cmb/helpers/cmb_Meta_Box_types.php:139
+msgid "Add Row"
+msgstr ""
+
+#: ../cmb/helpers/cmb_Meta_Box_types.php:167
+#: ../cmb/helpers/cmb_Meta_Box_types.php:459
+#: ../cmb/helpers/cmb_Meta_Box_types.php:502
+#: ../../etsy-importer/cmb/helpers/cmb_Meta_Box_types.php:167
+#: ../../etsy-importer/cmb/helpers/cmb_Meta_Box_types.php:459
+#: ../../etsy-importer/cmb/helpers/cmb_Meta_Box_types.php:502
+msgid "Remove"
+msgstr ""
+
+#: ../cmb/helpers/cmb_Meta_Box_types.php:437
+#: ../cmb/helpers/cmb_Meta_Box_types.php:475
+#: ../../etsy-importer/cmb/helpers/cmb_Meta_Box_types.php:437
+#: ../../etsy-importer/cmb/helpers/cmb_Meta_Box_types.php:475
+msgid "Add or Upload File"
+msgstr ""
+
+#: ../cmb/helpers/cmb_Meta_Box_types.php:448
+#: ../cmb/helpers/cmb_Meta_Box_types.php:494
+#: ../../etsy-importer/cmb/helpers/cmb_Meta_Box_types.php:448
+#: ../../etsy-importer/cmb/helpers/cmb_Meta_Box_types.php:494
+msgid "Remove Image"
+msgstr ""
+
+#: ../cmb/helpers/cmb_Meta_Box_types.php:459
+#: ../cmb/helpers/cmb_Meta_Box_types.php:502
+#: ../../etsy-importer/cmb/helpers/cmb_Meta_Box_types.php:459
+#: ../../etsy-importer/cmb/helpers/cmb_Meta_Box_types.php:502
+msgid "File:"
+msgstr ""
+
+#: ../cmb/helpers/cmb_Meta_Box_types.php:459
+#: ../cmb/helpers/cmb_Meta_Box_types.php:502
+#: ../../etsy-importer/cmb/helpers/cmb_Meta_Box_types.php:459
+#: ../../etsy-importer/cmb/helpers/cmb_Meta_Box_types.php:502
+msgid "Download"
+msgstr ""
+
