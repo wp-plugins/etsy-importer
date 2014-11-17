@@ -5,7 +5,7 @@ Plugin URI: http://www.webdevstudios.com
 Description: Import your Etsy store's products as posts in a custom post type.
 Author: WebDevStudios
 Author URI: http://www.webdevstudios.com
-Version: 1.0.0
+Version: 1.1.0
 License: GPLv2
 */
 
@@ -40,6 +40,12 @@ Class Etsy_Importer {
 	 * Build our class and run the functions
 	 */
 	public function __construct() {
+
+		// Setup our cron job
+		add_action( 'wp', array( $this, 'setup_cron_schedule' ) );
+
+		// Run our cron job to import new products
+		add_action( 'etsy_importer_daily_cron_job', array( $this, 'cron_import_posts' ) );
 
 		// Add our menu items
 		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
@@ -79,11 +85,7 @@ Class Etsy_Importer {
 		// Get the shop ID and our API key
 		$this->options 	= get_option( 'etsy_store_settings' );
 		$this->api_key 	= ( isset( $this->options['settings_etsy_api_key'] ) ) ? esc_html( $this->options['settings_etsy_api_key'] ) : '';
-		$this->store_id 	= ( isset( $this->options['settings_etsy_store_id'] ) ) ? esc_html( $this->options['settings_etsy_store_id'] ) : '';
-
-		// // Get the total post count
-		// $count_posts = wp_count_posts( 'etsy_products' );
-		// $total_posts = $count_posts->publish + $count_posts->future + $count_posts->draft + $count_posts->pending + $count_posts->private;
+		$this->store_id = ( isset( $this->options['settings_etsy_store_id'] ) ) ? esc_html( $this->options['settings_etsy_store_id'] ) : '';
 
 		// Grab the shop name
 		$url 			= 'https://openapi.etsy.com/v2/private/shops/' . $this->store_id . '?api_key=' . $this->api_key;
@@ -94,6 +96,15 @@ Class Etsy_Importer {
 
 		$this->response = json_decode( $response_body );
 
+	}
+
+
+	// add once 10 minute interval to wp schedules
+	public function new_interval($interval) {
+
+	    $interval['minutes_1'] = array('interval' => 1*60, 'display' => 'Once every minute');
+
+	    return $interval;
 	}
 
 
@@ -409,25 +420,46 @@ Class Etsy_Importer {
 	public function process_settings_save() {
 
 		// Save our API Key
-		if ( isset( $_POST['etsy_store_settings']['settings_etsy_api_key'] ) && ! empty ( $_POST['etsy_store_settings']['settings_etsy_api_key'] ) )
+		if ( isset( $_POST['etsy_store_settings']['settings_etsy_api_key'] ) && ! empty ( $_POST['etsy_store_settings']['settings_etsy_api_key'] ) ) {
 
 			// Update our class variables
 			$this->settings_etsy_api_key = $_POST['etsy_store_settings']['settings_etsy_api_key'];
+		}
 
 		// Save our Store ID
-		if ( isset( $_POST['etsy_store_settings']['settings_etsy_store_id'] ) && ! empty ( $_POST['etsy_store_settings']['settings_etsy_store_id'] ) )
+		if ( isset( $_POST['etsy_store_settings']['settings_etsy_store_id'] ) && ! empty ( $_POST['etsy_store_settings']['settings_etsy_store_id'] ) ) {
 
 			// Update our class variables
 			$this->settings_etsy_store_id = $_POST['etsy_store_settings']['settings_etsy_store_id'];
+		}
+
 
 		// If both our API Key and Store ID are saved, import our products
-		if ( isset( $_POST['etsy_import_nonce'] ) && isset( $_POST['submit-import'] ) && ! empty ( $_POST['etsy_store_settings']['settings_etsy_api_key'] ) && ! empty ( $_POST['etsy_store_settings']['settings_etsy_store_id'] ) )
+		if ( isset( $_POST['etsy_import_nonce'] ) && isset( $_POST['submit-import'] ) && ! empty ( $_POST['etsy_store_settings']['settings_etsy_api_key'] ) && ! empty ( $_POST['etsy_store_settings']['settings_etsy_store_id'] ) ) {
 
 			// Import our products
 			$this->import_posts();
-
+		}
 	}
 
+	/**
+	 * On an early action hook, check if the hook is scheduled - if not, schedule it.
+	 * This runs once daily
+	 */
+	public function setup_cron_schedule() {
+
+		if ( ! wp_next_scheduled( 'etsy_importer_daily_cron_job' ) ) {
+			wp_schedule_event( time(), 'daily', 'etsy_importer_daily_cron_job');
+		}
+	}
+
+	/**
+	 * Add the function to run our import script for our cron job
+	 */
+	public function cron_import_posts() {
+
+		$this->import_posts();
+	}
 
 	/**
 	 * Build the admin page
@@ -456,7 +488,8 @@ Class Etsy_Importer {
 					</div>
 					<div class="submit">
 						<input name="submit-import" type="submit" class="button-primary button-import" value="<?php esc_attr_e( 'Import Products', 'etsy_importer' ); ?>" <?php echo $disabled; ?> />
-						<span class="save-notes"><em><?php _e( 'Your import could take a while if you have a large number of products or images attached to each product.', 'etsy_importer' ); ?></em></span>
+						<div class="save-notes"><em><?php _e( 'Your import could take a while if you have a large number of products or images attached to each product.', 'etsy_importer' ); ?></em>
+						<p><em><?php _e( 'After your initial import, your products will import automatically once daily.  If you need to manually import your products ahead of schedule, clicking the Import Products button will begin a manual import of new products.', 'etsy_importer' ); ?></em></p></div>
 					</div>
 				</div>
 			</form>
@@ -477,6 +510,13 @@ Class Etsy_Importer {
 			'external'	=> '',
 			'title'		=> ''
 		), $atts ) );
+
+		// Get our post content
+		$product = get_post( $id );
+
+		// If there is no product found, stop
+		if ( ! $product )
+			return;
 
 		// Get our post or external link
 		if ( $external == 'yes' || $external == 'true' ) {
@@ -519,6 +559,11 @@ Class Etsy_Importer {
 
 		// Get our post content
 		$product = get_post( $id );
+
+		// If there is no product found, stop
+		if ( ! $product )
+			return;
+
 		$content = wpautop( $product->post_content );
 
 		// Assume zer is nussing
@@ -528,11 +573,11 @@ Class Etsy_Importer {
 		if ( $content ) {
 
 			// If we have a length set, apply it
-			if ( $length !== '' ) {
+			if ( '' !== $length ) {
 
-				$excerpt_length = apply_filters( 'excerpt_length', $length );
-			    $excerpt_more = apply_filters( 'excerpt_more', '...' );
-			    $output .= '<p>' . wp_trim_words( $content, $excerpt_length, $excerpt_more ) . '</p>';
+				$excerpt_length = $length;
+			    $excerpt_more   = '&hellip;';
+			    $output        .= '<p>' . wp_trim_words( $content, $excerpt_length, $excerpt_more ) . ' <a href="' . get_permalink( $id ) . '" class="more-link">' . __( 'Continue reading', 'etsy_importer' ) . ' <span class="screen-reader-text">' . $product->post_title . '</span></a></p>';
 
 			} else {
 
@@ -557,6 +602,13 @@ Class Etsy_Importer {
 			'id'	=> '',
 			'size'	=> ''
 		), $atts ) );
+
+		// Get our post content
+		$product = get_post( $id );
+
+		// If there is no product found, stop
+		if ( ! $product )
+			return;
 
 		// Get our post images
 		$images = get_posts( array(
@@ -600,7 +652,6 @@ Class Etsy_Importer {
 		return $id;
 
 	}
-
 
 	/**
 	 * Register the function that imports our posts

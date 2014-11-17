@@ -33,12 +33,14 @@
 
 #options-form .save-notes {
 	margin: 0 0 10px;
+	overflow: hidden;
 	padding: 0 0 0 15px;
 }
 
 #options-form .button-import {
 	background: #34B928;
 	border-color: #2C9B22;
+	float: left;
 }
 
 #options-form .button-import:active,

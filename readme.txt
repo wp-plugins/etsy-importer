@@ -6,7 +6,7 @@ Tags: etsy, store, shop, import, importer
 Author: WebDevStudios
 Author URI: http://www.webdevstudios.com
 Requires at least: 3.5
-Tested up to: 3.8
+Tested up to: 4.1
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -19,11 +19,12 @@ This plugin will allow you to import your entire Etsy shop's inventory into Word
 
 The Etsy Importer will not only import your products but will also:
 
-*	Attach all of the product's images to the post
-*	Set the main product image as the post's featured thumbnail
-*	Add and attach any category added to your product
-*	Add and attach any tag added to your product
-*	Add the Price, Etsy Product Link, Production Year and Made For (men/women) meta information to the post
+* Attach all of the product's images to the post
+* Set the main product image as the post's featured thumbnail
+* Add and attach any category added to your product
+* Add and attach any tag added to your product
+* Add the Price, Etsy Product Link, Production Year and Made For (men/women) meta information to the post
+* Check for new products in your Etsy shop daily and import them automatically.  Hands free!
 
 Not only do we import your products, but we add some shortcodes to help you integrate your products into blog posts.
 
@@ -37,7 +38,7 @@ Or as an external link to your Etsy product page:
 `[product_link id=569 title="This is a great new product" external=true]`
 
 Display your product's post content trimmed to whatever length you wish.  If no value is set for the length, the full content of the post will be displayed:
-`[product content id=569 length=50]`
+`[product_content id=569 length=50]`
 
 Display your product's images in a Thickbox gallery using WordPress' built-in Thickbox jQuery and CSS:
 `[product_images id=569]`
@@ -59,5 +60,10 @@ Display your product's images in a Thickbox gallery using WordPress' built-in Th
 
 == Changelog ==
 
-= 1.0 =
-Launch
+= 1.1.0 =
+* Add cron job to automatically pull in products once daily
+* Add a conditional to fix the product_content shortcode from breaking when using a non-existent post ID
+* Fix product_content typo in readme.txt
+
+= 1.0.0 =
+* Launch
