@@ -60,6 +60,9 @@ Display your product's images in a Thickbox gallery using WordPress' built-in Th
 
 == Changelog ==
 
+= 1.1.1 =
+* Fix line grabbing the title of a product when using a shortcode
+
 = 1.1.0 =
 * Add cron job to automatically pull in products once daily
 * Add a conditional to fix the product_content shortcode from breaking when using a non-existent post ID

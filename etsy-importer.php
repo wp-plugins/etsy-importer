@@ -531,7 +531,7 @@ Class Etsy_Importer {
 		}
 
 		// Get our link title
-		$title = $title ? : get_the_title( $id );
+		$title = ( $title ) ? $title : get_the_title( $id );
 
 		// Assume zer is nussing
 		$output = '';
