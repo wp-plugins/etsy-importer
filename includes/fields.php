@@ -22,7 +22,7 @@ function etsy_metaboxes( array $meta_boxes ) {
 	$meta_boxes['etsy_metaboxes'] = array(
 		'id'         => 'etsy_product_info',
 		'title'      => __( 'Product Information', 'etsy' ),
-		'object_types'      => array( 'etsy_products', ), // Post type
+		'object_types'      => array( apply_filters( 'etsy_importer_custom_post_type_key', 'etsy_products' ), ), // Post type
 		'context'    => 'normal',
 		'priority'   => 'high',
 		'show_names' => true, // Show field names on the left
